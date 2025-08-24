@@ -1,0 +1,27 @@
+{% extends "base.html" %} 
+{% block title %} Experiment: {{experiment.Name}}
+{%endblock %} 
+
+{% block content %}
+
+<h2>Experiment: {{ experiment.Name }}</h2>
+<p>Created at: {{ experiment.CreatedAt.Format("2006-01-02 15:04:05") }}</p>
+
+<h3>Measurements</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in measurements %}
+        <tr>
+            <td>{{ m.Timestamp.Format("2006-01-02 15:04:05") }}</td>
+            <td>{{ m.Value }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

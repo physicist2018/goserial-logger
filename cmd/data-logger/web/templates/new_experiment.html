@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+{% block title %}New Experiment{% endblock %} 
+{% block content %}
+<h2>New Experiment</h2>
+{{currentExperimentID}} {% if currentExperimentID > 0 %}
+<div class="alert">
+    Currently collecting data for experiment #{{ currentExperimentID }}.
+    Creating a new experiment will stop the current data collection.
+</div>
+{% endif %}
+
+<form method="POST">
+    <div>
+        <label for="name">Experiment Name:</label>
+        <input type="text" id="name" name="name" required />
+        <label for="description">Experiment Description:</label>
+        <input type="text" id="description" name="description" required />
+    </div>
+    <button type="submit">Start New Experiment</button>
+</form>
+{% endblock %}

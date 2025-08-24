@@ -1,0 +1,77 @@
+{% extends "base.html" %} {% block title %}Experiments{% endblock %} 
+{% block content %}
+<h2>Experiments</h2>
+
+<div class="status-panel">
+    <h3>Data Collection Status</h3>
+    <div id="status-container">
+        <p>Loading status...</p>
+    </div>
+    <button id="stop-btn" style="display: none" onclick="stopDataCollection()">
+        Stop Data Collection
+    </button>
+</div>
+
+<h2>Experiments</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exp in experiments %}
+        <tr>
+            <td>{{ exp.ID }}</td>
+            <td>{{ exp.Name }}</td>
+            <td>{{ exp.Description }}</td>
+            <td>{{ exp.CreatedAt.Format("2006-01-02 15:04:05") }}</td>
+            <td><a href="/experiment?id={{ exp.ID }}">View</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    function loadStatus() {
+        fetch("/api/status")
+            .then((response) => response.json())
+            .then((data) => {
+                const container = document.getElementById("status-container");
+                const stopBtn = document.getElementById("stop-btn");
+
+                if (data.is_running) {
+                    container.innerHTML = `
+                    <p><strong>Status:</strong> Running</p>
+                    <p><strong>Experiment:</strong> #${data.current_experiment}</p>
+                    <p><strong>Port:</strong> ${data.port} (${data.baud_rate} baud)</p>
+                `;
+                    stopBtn.style.display = "block";
+                } else {
+                    container.innerHTML =
+                        "<p><strong>Status:</strong> Stopped</p>";
+                    stopBtn.style.display = "none";
+                }
+            });
+    }
+
+    function stopDataCollection() {
+        if (confirm("Are you sure you want to stop data collection?")) {
+            fetch("/api/stop", { method: "POST" })
+                .then((response) => response.json())
+                .then((data) => {
+                    alert(data.message);
+                    loadStatus();
+                });
+        }
+    }
+
+    // Загружаем статус при загрузке страницы и каждые 5 секунд
+    loadStatus();
+    setInterval(loadStatus, 5000);
+</script>
+{% endblock %}

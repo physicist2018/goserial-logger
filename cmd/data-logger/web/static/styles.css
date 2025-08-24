@@ -1,0 +1,25 @@
+.status-panel {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.status-panel h3 {
+    margin-top: 0;
+    color: #495057;
+}
+
+#stop-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#stop-btn:hover {
+    background-color: #c82333;
+}

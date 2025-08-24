@@ -1,0 +1,5 @@
+*.zip
+*.exe
+cmd/data-logger/data-logger
+cmd/data-logger/data
+cmd/data-logger/tmp

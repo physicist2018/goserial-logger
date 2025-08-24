@@ -1,12 +1,12 @@
 module github.com/physicist2018/gomodserial-v1
 
-go 1.24.0
+go 1.20
 
 require (
 	github.com/flosch/pongo2/v6 v6.0.0
-	github.com/glebarez/go-sqlite v1.22.0
 	github.com/sirupsen/logrus v1.9.3
 	go.bug.st/serial v1.6.4
+	modernc.org/sqlite v1.38.2
 )
 
 require (
@@ -21,5 +21,4 @@ require (
 	modernc.org/libc v1.66.7 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
-	modernc.org/sqlite v1.38.2 // indirect
 )

@@ -13,7 +13,7 @@ WEB-приложение для управления логированием д
 Для установки и запуска приложения выполните следующие команды:
 
 ```bash
-git clone https://github.com/зрнышсшые2018/goserial-logger.git
+git clone https://github.com/physicist2018/goserial-logger.git
 cd goserial-logger
 go mod tidy
 go build

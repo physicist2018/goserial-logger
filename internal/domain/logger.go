@@ -3,8 +3,7 @@ package domain
 import (
 	"os"
 
-	"github.com/physicist2018/gomodserial-v1/pkg/utils"
-	"github.com/sirupsen/logrus"
+	"log"
 )
 
-var DomainLogger = utils.NewLogger(logrus.InfoLevel, os.Stdout)
+var DomainLogger = log.New(os.Stderr, "DOMAIN", log.Ldate)

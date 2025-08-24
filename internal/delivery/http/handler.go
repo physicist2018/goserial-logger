@@ -10,7 +10,6 @@ import (
 	"github.com/flosch/pongo2/v6"
 	"github.com/physicist2018/gomodserial-v1/internal/delivery/serial"
 	"github.com/physicist2018/gomodserial-v1/internal/usecase"
-	"github.com/sirupsen/logrus"
 )
 
 type WebHandler struct {
@@ -239,6 +238,6 @@ func (h *WebHandler) ShowExperiment(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *WebHandler) Home(w http.ResponseWriter, r *http.Request) {
-	logrus.Info("HOME")
+	log.Println("HOME")
 	http.Redirect(w, r, "/experiments", http.StatusSeeOther)
 }

@@ -15,7 +15,6 @@ import (
 	"github.com/physicist2018/gomodserial-v1/internal/infrastructure/database"
 	"github.com/physicist2018/gomodserial-v1/internal/usecase"
 	"github.com/physicist2018/gomodserial-v1/pkg/config"
-	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -71,11 +70,11 @@ func main() {
 
 	// Start HTTP server
 	go func() {
-		logrus.Infof("Starting server on port %d", cfg.ServerPort)
-		logrus.Infof("Database path: %s", cfg.DBName)
-		logrus.Infof("COM port: %s (%d baud)", cfg.PortName, baudRate)
+		log.Printf("Starting server on port %d", cfg.ServerPort)
+		log.Printf("Database path: %s", cfg.DBName)
+		log.Printf("COM port: %s (%d baud)", cfg.PortName, baudRate)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			logrus.Fatalf("HTTP server error: %v", err)
+			log.Fatalf("HTTP server error: %v", err)
 		}
 	}()
 
@@ -86,7 +85,7 @@ func main() {
 	go func() {
 		for expID := range expChan {
 			if err := serialListener.Start(expID); err != nil {
-				logrus.Fatalf("Failed to start serial listener: %v", err)
+				log.Fatalf("Failed to start serial listener: %v", err)
 			}
 		}
 	}()
@@ -105,15 +104,15 @@ func main() {
 	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)
 	<-sigChan
 
-	logrus.Infoln("Shutting down server...")
+	log.Println("Shutting down server...")
 
 	// Graceful shutdown
 	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer shutdownCancel()
 
 	if err := server.Shutdown(shutdownCtx); err != nil {
-		logrus.Infof("HTTP server shutdown error: %v", err)
+		log.Printf("HTTP server shutdown error: %v", err)
 	}
 
-	logrus.Infoln("Server stopped")
+	log.Println("Server stopped")
 }

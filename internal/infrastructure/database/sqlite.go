@@ -72,7 +72,7 @@ func checkAndCreateTables(db *sql.DB) error {
 		if err != nil {
 			return fmt.Errorf("failed to create tables: %w", err)
 		}
-		domain.DomainLogger.Info("Database tables created successfully")
+		domain.DomainLogger.Println("Database tables created successfully")
 	}
 
 	return nil

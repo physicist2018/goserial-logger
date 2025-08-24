@@ -27,7 +27,7 @@ func (uc *ExperimentUseCase) CreateExperiment(ctx context.Context, name, descrip
 
 	id, err := uc.experimentRepository.CreateExperiment(ctx, experiment)
 	if err != nil {
-		domain.DomainLogger.Error(err)
+		domain.DomainLogger.Println(err)
 		return nil, err
 	}
 
